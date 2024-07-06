@@ -20,7 +20,7 @@ exit 1
 fi
 
 # Calculate the total number of lines
-total_lines=$(find "$DIR" -type f -exec wc -l {} + | awk 'END {print $1}')
+total_lines=$(find "$DIR" -type f | grep -v .git | xargs wc -l | awk 'END {print $1}')
 
 # Print the result
 echo "$total_lines"
