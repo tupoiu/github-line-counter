@@ -1,0 +1,43 @@
+<div class="wrapper">
+    <h1>How many lines in this Github repo?</h1>
+    <input id="linkbox" placeholder="Git link e.g. https://github.com/tupoiu/blah.git"></input>
+    <button id="submit">Count!</button>
+    <span></span>
+</div>
+<script>
+    var input = document.getElementById('linkbox')
+    var button = document.getElementById('submit')
+
+    button.onclick = function() {
+        var link = input.value
+        var span = document.querySelector('span')
+        span.textContent = 'Loading...'
+        fetch('/loc?git_link=' + link)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.lines) {
+                    throw new Error('Failed to download git repo')
+                } else {
+                    span.textContent = data.lines
+                }
+            }).catch(err => {
+                span.textContent = 'Error: ' + err
+            })
+    }
+</script>
+<style>
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+    #linkbox {
+        width: 50%;
+        font-size: 16px;
+        margin: 5%;
+    }
+    #submit {
+        font-size: 20px;
+    }
+</style>

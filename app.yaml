@@ -1,0 +1,9 @@
+runtime: python
+runtime_config:
+    operating_system: "ubuntu22"
+    runtime_version: "3.12"
+env: flex
+entrypoint: python main.py
+# handlers:  # Define the URL handlers for your application
+#   - url: /.*
+#     script: auto  # Use the main script to handle all other URLs
