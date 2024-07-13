@@ -4,7 +4,7 @@
     <br>This'll break for large repos (100s of MB) because the server I'm hosting on is tiny!</p>
     <input id="linkbox" placeholder="Git link e.g. https://github.com/tupoiu/blah.git"></input>
     <button id="submit">Count!</button>
-    <span></span>
+    <span id="outbox"></span>
 </div>
 <script>
     var input = document.getElementById('linkbox')
@@ -12,7 +12,7 @@
 
     button.onclick = function() {
         var link = input.value
-        var span = document.querySelector('span')
+        var span = document.getElementById('outbox')
         span.textContent = 'Loading...'
         fetch('/loc?git_link=' + link)
             .then(response => response.json())
