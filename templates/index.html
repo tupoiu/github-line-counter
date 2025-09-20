@@ -20,7 +20,23 @@
                 if (!data.lines) {
                     throw new Error('Failed to download git repo')
                 } else {
-                    span.textContent = data.lines
+                    let table = document.createElement('table')
+                    // Sort lines by number of lines descending
+                    let sortedLines = Object.fromEntries(
+                        Object.entries(data.lines).sort(([,a],[,b]) => b-a)
+                    )
+                    Object.entries(sortedLines).forEach(([extension, num_lines]) => {
+                        // Add a new table row for each extension
+                        var row = document.createElement('tr')
+                        var extCell = document.createElement('td')
+                        extCell.textContent = extension
+                        var linesCell = document.createElement('td')
+                        linesCell.textContent = num_lines
+                        row.appendChild(extCell)
+                        row.appendChild(linesCell)
+                        table.appendChild(row)
+                    });
+                    span.innerHTML = table.outerHTML
                 }
             }).catch(err => {
                 span.textContent = 'Error: ' + err
