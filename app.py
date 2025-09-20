@@ -15,10 +15,9 @@ def root():
 @app.route("/loc")
 def loc():
     git_link = request.args.get('git_link')
-    # git_link = "https://github.com/huertatipografica/HTLetterspacer.git"
     return count_lines(git_link)
     
-def count_lines(git_link: str):
+def count_lines(git_link: str | None):
     if not git_link:
         return "", 400
 
@@ -31,6 +30,8 @@ def count_lines(git_link: str):
     # Get all files in the directory
     directory = Path(current_time)
     files = [p for p in directory.rglob("*") if p.is_file()]
+
+    # Log the first 10 files for interest
     print(files[:10])
 
     total_lines_per_extension = {}
@@ -45,21 +46,13 @@ def count_lines(git_link: str):
                 lines = sum(1 for _line in f)
                 total_lines_per_extension[extension] += lines
             except Exception as e:
-                print(e)
-                pass
+                print(f"Error reading {file}", e)
+
     total_lines_per_extension[".*"] = sum(v for v in total_lines_per_extension.values())
     shutil.rmtree(current_time, ignore_errors=True)
 
     return {"git_link": git_link, "lines": total_lines_per_extension}, 200
 
-    # Count the lines and put the result in a variable
-    # lines = subprocess.run(["bash", "count-lines.sh", git_link], stdout=subprocess.PIPE, text=True)
-
-    if (lines.stderr):
-        return {"git_link": git_link, "error": lines.stderr}, 400
-    else: 
-        return {"git_link": git_link, "lines": lines.stdout.strip()}, 200
-    
 if __name__ == "__main__":
     git_link = sys.argv[1]
     lines = count_lines(git_link)

@@ -3,7 +3,7 @@ name = "github-line-counter"
 version = "0.1.0"
 description = "Webapp for counting lines of a public github repo"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "flask>=3.1.2",
     "gunicorn>=23.0.0",
