@@ -1,0 +1,7 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "deploy": {
+    "aptPackages": ["git"],
+    "startCommand": "uv run gunicorn app:app"
+  }
+}
