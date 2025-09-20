@@ -4,4 +4,3 @@ Simple website for counting the lines of a Github repo, because I wanted to find
 
 Hosted here:
 [https://web-production-ea0c8.up.railway.app/]
-[https://github-loc-counter-4342a5c3499d.herokuapp.com/]
